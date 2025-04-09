@@ -1,4 +1,4 @@
-package top.resty.store.config;
+package top.resty.spboot.config;
 
 /**
  * <p>
@@ -9,6 +9,9 @@ package top.resty.store.config;
  * @since : 2024年03月20 - 14:34
  */
 public enum ResultEnum {
+
+  // 文件保存失败
+
   /**
    * 正确的请求返回正确的结果
    */

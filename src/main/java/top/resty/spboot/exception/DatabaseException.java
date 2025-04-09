@@ -1,4 +1,4 @@
-package top.resty.store.exception;
+package top.resty.spboot.exception;
 
 /**
  * <p>

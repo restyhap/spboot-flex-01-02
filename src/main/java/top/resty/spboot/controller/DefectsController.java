@@ -1,21 +1,17 @@
 package top.resty.spboot.controller;
 
-import com.mybatisflex.core.paginate.Page;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import top.resty.spboot.entity.Defects;
-import top.resty.spboot.service.DefectsService;
-import org.springframework.web.bind.annotation.RestController;
 import cn.zhxu.bs.BeanSearcher;
 import cn.zhxu.bs.util.MapUtils;
-import top.resty.spboot.vo.ResultVO;
+import com.mybatisflex.core.paginate.Page;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+import top.resty.spboot.entity.Defects;
+import top.resty.spboot.service.DefectImagesService;
+import top.resty.spboot.service.DefectsService;
+import top.resty.spboot.vo.ResultVO;
+
 import java.util.Map;
 
 /**
@@ -33,6 +29,8 @@ public class DefectsController {
 
     @Autowired
     private BeanSearcher beanSearcher ;
+    @Autowired
+    private DefectImagesService defectsImageService;
 
     /**
      * 搜索缺陷记录表。
@@ -65,7 +63,9 @@ public class DefectsController {
      * @return {@code true} 删除成功，{@code false} 删除失败
      */
     @DeleteMapping("remove/{id}")
+    @Transactional
     public ResultVO remove(@PathVariable String id) {
+        defectsImageService.removeByDefectId(id); // 删除关联的缺陷图片
         return ResultVO.success(defectsService.removeById(id));
     }
 
@@ -100,6 +100,12 @@ public class DefectsController {
     public ResultVO getInfo(@PathVariable String id) {
         return ResultVO.success(defectsService.getById(id));
     }
+
+    @GetMapping("getInfoByReportId/{id}")
+    public ResultVO getInfoByReportId(@PathVariable String id) {
+        return ResultVO.success(defectsService.getInfoByReportId(id));
+    }
+
 
     /**
      * 分页查询缺陷记录表。

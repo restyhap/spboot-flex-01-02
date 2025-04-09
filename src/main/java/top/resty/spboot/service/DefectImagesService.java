@@ -11,4 +11,5 @@ import top.resty.spboot.entity.DefectImages;
  */
 public interface DefectImagesService extends IService<DefectImages> {
 
+  int removeByDefectId(String id);
 }

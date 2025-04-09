@@ -1,21 +1,15 @@
 package top.resty.spboot.controller;
 
-import com.mybatisflex.core.paginate.Page;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import top.resty.spboot.entity.User;
-import top.resty.spboot.service.UserService;
-import org.springframework.web.bind.annotation.RestController;
 import cn.zhxu.bs.BeanSearcher;
 import cn.zhxu.bs.util.MapUtils;
-import top.resty.spboot.vo.ResultVO;
+import com.mybatisflex.core.paginate.Page;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import top.resty.spboot.entity.User;
+import top.resty.spboot.service.UserService;
+import top.resty.spboot.vo.ResultVO;
+
 import java.util.Map;
 
 /**
@@ -34,6 +28,14 @@ public class UserController {
     @Autowired
     private BeanSearcher beanSearcher ;
 
+    @PostMapping("login")
+    public ResultVO login(@RequestBody User user , HttpServletRequest request) {
+        Map<String, Object> flat = MapUtils.flat(request.getParameterMap());
+        flat.put("username",user.getUsername());
+        flat.put("password",user.getPassword());
+        return ResultVO.success(beanSearcher.searchList(User.class, flat));
+    }
+
     /**
      * 搜索。
      *
@@ -44,13 +46,14 @@ public class UserController {
     public ResultVO search (HttpServletRequest request ) {
         Map<String, Object> flat = MapUtils.flat(request.getParameterMap());
         flat.put("sort","id");
+        flat.put("order","desc");
         return ResultVO.success(beanSearcher.searchList(User.class, flat));
     }
 
     /**
      * 添加。
      *
-     * @param user 
+     * @param user
      * @return {@code true} 添加成功，{@code false} 添加失败
      */
     @PostMapping("save")
@@ -72,7 +75,7 @@ public class UserController {
     /**
      * 根据主键更新。
      *
-     * @param user 
+     * @param user
      * @return {@code true} 更新成功，{@code false} 更新失败
      */
     @PutMapping("update")

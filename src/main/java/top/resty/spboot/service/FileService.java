@@ -1,9 +1,9 @@
 package top.resty.spboot.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.beans.factory.annotation.Value;
-import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,8 +14,8 @@ import java.util.UUID;
 
 @Service
 public class FileService {
-    
-    @Value("${file.upload.path}")
+
+    @Value("${config.upload-path}")
     private String uploadPath;
 
     /**
@@ -26,29 +26,29 @@ public class FileService {
      */
     public List<String> handleFileUpload(List<MultipartFile> files) throws IOException {
         List<String> fileUrls = new ArrayList<>();
-        
+
         // 确保上传目录存在
         Path uploadDir = Paths.get(uploadPath);
         if (!Files.exists(uploadDir)) {
             Files.createDirectories(uploadDir);
         }
-        
+
         for (MultipartFile file : files) {
             if (file != null && !file.isEmpty()) {
                 // 生成唯一的文件名
                 String originalFilename = file.getOriginalFilename();
                 String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
                 String newFilename = UUID.randomUUID().toString() + extension;
-                
+
                 // 保存文件
                 Path filePath = uploadDir.resolve(newFilename);
                 Files.copy(file.getInputStream(), filePath);
-                
+
                 // 添加文件URL到列表
                 fileUrls.add("/uploads/" + newFilename);
             }
         }
-        
+
         return fileUrls;
     }
-} 
+}

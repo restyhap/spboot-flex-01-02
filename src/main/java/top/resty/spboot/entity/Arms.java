@@ -1,16 +1,16 @@
 package top.resty.spboot.entity;
 
+import cn.zhxu.bs.bean.SearchBean;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
-import java.io.Serializable;
-import cn.zhxu.bs.bean.SearchBean;
-
-import java.io.Serial;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 扶手信息表 实体类。
@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table("tb_arms")
 @SearchBean(tables = "tb_arms")
+@Schema(name = "Arms", description = "$!{table.comment}")
 public class Arms implements Serializable {
 
     @Serial

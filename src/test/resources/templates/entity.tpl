@@ -8,6 +8,7 @@ package #(entityPackageName);
 #for(importClass : table.buildImports(isBase))
 import #(importClass);
 #end
+import cn.zhxu.bs.bean.SearchBean;
 #if(withActiveRecord)
 import com.mybatisflex.core.activerecord.Model;
 #end
@@ -39,7 +40,6 @@ import lombok.EqualsAndHashCode;
 #end
 #end
 #end
-import cn.zhxu.bs.bean.SearchBean;
 
 /**
  * #(table.getComment()) 实体类。
@@ -68,9 +68,8 @@ import cn.zhxu.bs.bean.SearchBean;
 #if(withSwagger && swaggerVersion.getName() == "DOC")
 @Schema(description = "#(table.getComment())")
 #end
-@SearchBean(tables = "#(table.getName())")
-
 #(table.buildTableAnnotation()) #end
+@SearchBean(tables = "#(table.getName())")
 public class #(entityClassName)#if(withActiveRecord) extends Model<#(entityClassName)>#else#(table.buildExtends(isBase))#(table.buildImplements())#end  {
 
     #if(jdkVersion >= 14)
@@ -95,6 +94,8 @@ public class #(entityClassName)#if(withActiveRecord) extends Model<#(entityClass
     #if(withSwagger && swaggerVersion.getName() == "DOC")
     @Schema(description = "#(column.comment)")
     #end
+    @Column("#(column.name)")
+    @DbField("#(column.name)")
     private #(column.propertySimpleType) #(column.property)#if(isNotBlank(column.propertyDefaultValue)) = #(column.propertyDefaultValue)#end;
 
 #end

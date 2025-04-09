@@ -1,0 +1,76 @@
+# 应用配置
+config:
+  url: jdbc:mysql://localhost:3306/${config.database}?allowMutiQueries=true&rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&allowPublicKeyRetrieval=true
+  user: root
+  pwd: root
+  class-name: com.mysql.cj.jdbc.Driver
+  path: top.resty.spboot
+  upload-path: /Users/resty-mac/uploads/
+# 静态资源配置
+
+
+
+# Spring Boot 配置
+spring:
+  application:
+    name: spboot-flex-12-17
+  datasource:
+    url: ${config.url}
+    username: ${config.user}
+    password: ${config.pwd}
+    driver-class-name: ${config.class-name}
+    hikari:
+      idle-timeout: 60000
+      maximum-pool-size: 30
+      minimum-idle: 10
+      max-lifetime: 12
+      connection-test-query: SELECT 1
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+
+# bean-searcher 配置
+
+# logging 配置
+logging:
+  level:
+    root: info
+    top.resty.spboot.mapper: debug
+    cn.zhxu.bs: debug
+
+
+# ssl 配置
+server:
+  port: 8080 # https 端口号
+#  ssl:
+#    enabled: true
+#    key-store: classpath:keystore.jks
+#    key-store-password: restyhap
+#    key-store-type: JKS
+#    key-alias: resty.com
+
+springdoc:
+  swagger-ui:
+    path: /doc.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+  - group: 'default'
+    paths-to-match: '/**'
+    #生成文档所需的扫包路径，一般为启动类目录
+    packages-to-scan: top.resty.spboot.controller
+#knife4j配置
+knife4j:
+  #是否启用增强设置
+  enable: true
+  #开启生产环境屏蔽
+  production: false
+  setting:
+    language: zh_cn
+    enable-version: true
+    enable-swagger-models: true
+    swagger-model-name: 用户模块

@@ -3,6 +3,8 @@ package top.resty.spboot.service;
 import com.mybatisflex.core.service.IService;
 import top.resty.spboot.entity.Defects;
 
+import java.util.List;
+
 /**
  * 缺陷记录表 服务层。
  *
@@ -11,4 +13,5 @@ import top.resty.spboot.entity.Defects;
  */
 public interface DefectsService extends IService<Defects> {
 
+  List<Defects> getInfoByReportId(String id);
 }

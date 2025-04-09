@@ -1,18 +1,27 @@
+/*
+ * @Author: resty restyhap@hotmail.com
+ * @Date: 2025-02-25 18:29:39
+ * @LastEditors: resty restyhap@hotmail.com
+ * @LastEditTime: 2025-04-04 20:31:06
+ * @FilePath: /yarn-vite-web-01-02/Users/resty-mac/02-workspace/99_project/2025.01/spboot-flex-01-02/src/main/java/top/resty/spboot/entity/Products.java
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 package top.resty.spboot.entity;
 
+
+import cn.zhxu.bs.bean.DbField;
+import cn.zhxu.bs.bean.SearchBean;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import cn.zhxu.bs.bean.SearchBean;
-
-import java.io.Serial;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 产品基本信息表 实体类。
@@ -66,12 +75,14 @@ public class Products implements Serializable {
      * 20尺柜FOB价格
      */
     @Column("fob_20_container_price")
+    @DbField("fob_20_container_price")
     private BigDecimal fob20ContainerPrice;
 
     /**
      * 40尺柜FOB价格
      */
     @Column("fob_40_container_price")
+    @DbField("fob_40_container_price")
     private BigDecimal fob40ContainerPrice;
 
     /**

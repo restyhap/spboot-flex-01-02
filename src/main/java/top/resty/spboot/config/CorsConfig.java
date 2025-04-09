@@ -1,4 +1,4 @@
-package top.resty.store.config;
+package top.resty.spboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,10 +1,10 @@
 package top.resty.spboot.service.impl;
 
 import com.mybatisflex.spring.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
 import top.resty.spboot.entity.Permissions;
 import top.resty.spboot.mapper.PermissionsMapper;
 import top.resty.spboot.service.PermissionsService;
-import org.springframework.stereotype.Service;
 
 /**
  *  服务层实现。

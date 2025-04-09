@@ -1,21 +1,16 @@
 package top.resty.spboot.controller;
 
-import com.mybatisflex.core.paginate.Page;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import top.resty.spboot.entity.Arms;
-import top.resty.spboot.service.ArmsService;
-import org.springframework.web.bind.annotation.RestController;
 import cn.zhxu.bs.BeanSearcher;
 import cn.zhxu.bs.util.MapUtils;
-import top.resty.spboot.vo.ResultVO;
+import com.mybatisflex.core.paginate.Page;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import top.resty.spboot.entity.Arms;
+import top.resty.spboot.service.ArmsService;
+import top.resty.spboot.vo.ResultVO;
+
 import java.util.Map;
 
 /**
@@ -41,6 +36,7 @@ public class ArmsController {
      * @return 搜索结果
      */
     @GetMapping("search")
+    @Operation(summary = "搜索扶手信息表")
     public ResultVO search (HttpServletRequest request ) {
         Map<String, Object> flat = MapUtils.flat(request.getParameterMap());
         flat.put("sort","id");

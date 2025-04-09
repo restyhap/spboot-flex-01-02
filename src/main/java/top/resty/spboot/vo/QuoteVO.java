@@ -2,6 +2,9 @@ package top.resty.spboot.vo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 /**
  * <p>
  *
@@ -13,5 +16,20 @@ import lombok.Data;
 @Data
 public class QuoteVO {
 
+  private String id;
+
+  private String supplier;
+
+  private String supplierItemCode;
+
+  private String specificationDetails;
+
+  private LocalDateTime sampleLeadTime;
+
+  private BigDecimal fobPrice;
+
+  private String salesContacts;
+
+  private LocalDateTime createTime;
 
 }

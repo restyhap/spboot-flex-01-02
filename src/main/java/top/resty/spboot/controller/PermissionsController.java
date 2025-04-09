@@ -1,21 +1,15 @@
 package top.resty.spboot.controller;
 
-import com.mybatisflex.core.paginate.Page;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import top.resty.spboot.entity.Permissions;
-import top.resty.spboot.service.PermissionsService;
-import org.springframework.web.bind.annotation.RestController;
 import cn.zhxu.bs.BeanSearcher;
 import cn.zhxu.bs.util.MapUtils;
-import top.resty.spboot.vo.ResultVO;
+import com.mybatisflex.core.paginate.Page;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import top.resty.spboot.entity.Permissions;
+import top.resty.spboot.service.PermissionsService;
+import top.resty.spboot.vo.ResultVO;
+
 import java.util.Map;
 
 /**
@@ -50,7 +44,7 @@ public class PermissionsController {
     /**
      * 添加。
      *
-     * @param permissions 
+     * @param permissions
      * @return {@code true} 添加成功，{@code false} 添加失败
      */
     @PostMapping("save")
@@ -72,7 +66,7 @@ public class PermissionsController {
     /**
      * 根据主键更新。
      *
-     * @param permissions 
+     * @param permissions
      * @return {@code true} 更新成功，{@code false} 更新失败
      */
     @PutMapping("update")

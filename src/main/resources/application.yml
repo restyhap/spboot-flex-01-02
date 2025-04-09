@@ -1,3 +1,14 @@
 spring:
     application:
-        name: _00-spboot
+        name: spboot-flex-12-17
+    profiles:
+        active: prod
+    devtools:
+        restart:
+            exclude: top/resty/spboot/entity/**
+    # 配置mvc的路径匹配策略
+    mvc:
+        pathmatch:
+            matching-strategy: ANT_PATH_MATCHER
+config:
+    database: db_2025_01_02  # 数据库名

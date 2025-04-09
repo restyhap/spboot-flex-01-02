@@ -1,21 +1,18 @@
 package top.resty.spboot.controller;
 
+import cn.zhxu.bs.BeanSearcher;
+import cn.zhxu.bs.util.MapBuilder;
+import cn.zhxu.bs.util.MapUtils;
 import com.mybatisflex.core.paginate.Page;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.mybatisflex.core.query.QueryWrapper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import top.resty.spboot.entity.QcReports;
 import top.resty.spboot.service.QcReportsService;
-import org.springframework.web.bind.annotation.RestController;
-import cn.zhxu.bs.BeanSearcher;
-import cn.zhxu.bs.util.MapUtils;
 import top.resty.spboot.vo.ResultVO;
-import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,9 +39,39 @@ public class QcReportsController {
      */
     @GetMapping("search")
     public ResultVO search (HttpServletRequest request ) {
-        Map<String, Object> flat = MapUtils.flat(request.getParameterMap());
-        flat.put("sort","id");
-        return ResultVO.success(beanSearcher.searchList(QcReports.class, flat));
+        String keyword = request.getParameter("keyword");
+        Integer currentPage = Integer.parseInt(request.getParameter("currentPage"));
+        Integer pageSize = Integer.parseInt(request.getParameter("pageSize"));
+        // 获取供应商名称参数（如果存在）
+        String supplier = request.getParameter("supplier");
+
+        MapBuilder builder = MapUtils.builder();
+
+        // 如果有供应商参数，添加精确匹配条件（供应商用户查询时使用）
+        if (supplier != null && !supplier.trim().isEmpty()) {
+            builder.field(QcReports::getSupplier, supplier).op("eq");
+        }
+
+        // 根据关键字进行模糊查询
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            builder.or(or -> or
+                .field(QcReports::getModelCode, keyword).op("ct")
+                .field(QcReports::getSupplier, keyword).op("ct")
+                .field(QcReports::getFactoryCode, keyword).op("ct")
+            );
+        }
+
+        // 设置排序、分页等参数
+        Map flat = builder
+            .put("sort", "id")
+            .put("order", "desc")
+            .put("page", currentPage - 1)
+            .put("size", pageSize)
+            .build();
+
+        List list = beanSearcher.searchList(QcReports.class, flat);
+
+        return ResultVO.success(list);
     }
 
     /**
@@ -109,7 +136,13 @@ public class QcReportsController {
      */
     @GetMapping("page")
     public ResultVO page(Page<QcReports> page) {
-        return ResultVO.success(qcReportsService.page(page));
+        // 创建 QueryWrapper 并设置倒序排序
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.orderBy("id desc");  // 按ID倒序排序
+
+        // 使用 paginate 方法进行分页查询
+        Page<QcReports> resultPage = qcReportsService.page(page, queryWrapper);
+        return ResultVO.success(resultPage);
     }
 
 }

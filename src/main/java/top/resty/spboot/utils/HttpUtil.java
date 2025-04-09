@@ -1,4 +1,4 @@
-package com.baidu.ai.aip.utils;
+package top.resty.spboot.utils;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -36,6 +36,7 @@ public class HttpUtil {
 
     public static String postGeneralUrl(String generalUrl, String contentType, String params, String encoding)
             throws Exception {
+        SSLUtils.ignoreSsl();
         URL url = new URL(generalUrl);
         // 打开和URL之间的连接
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -57,6 +58,7 @@ public class HttpUtil {
         connection.connect();
         // 获取所有响应头字段
         Map<String, List<String>> headers = connection.getHeaderFields();
+        System.out.println("headers = " + headers);
         // 遍历所有的响应头字段
         for (String key : headers.keySet()) {
             System.err.println(key + "--->" + headers.get(key));

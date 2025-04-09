@@ -1,11 +1,22 @@
-package com.baidu.ai.aip.utils;
+package top.resty.spboot.utils;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 文件读取工具类
  */
 public class FileUtil {
+
+
+
 
     /**
      * 读取文件内容，作为字符串返回
@@ -14,33 +25,32 @@ public class FileUtil {
         File file = new File(filePath);
         if (!file.exists()) {
             throw new FileNotFoundException(filePath);
-        } 
+        }
 
         if (file.length() > 1024 * 1024 * 1024) {
             throw new IOException("File is too large");
-        } 
+        }
 
         StringBuilder sb = new StringBuilder((int) (file.length()));
-        // 创建字节输入流  
-        FileInputStream fis = new FileInputStream(filePath);  
+        // 创建字节输入流
+        FileInputStream fis = new FileInputStream(filePath);
         // 创建一个长度为10240的Buffer
-        byte[] bbuf = new byte[10240];  
-        // 用于保存实际读取的字节数  
-        int hasRead = 0;  
-        while ( (hasRead = fis.read(bbuf)) > 0 ) {  
-            sb.append(new String(bbuf, 0, hasRead));  
-        }  
-        fis.close();  
+        byte[] bbuf = new byte[10240];
+        // 用于保存实际读取的字节数
+        int hasRead = 0;
+        while ( (hasRead = fis.read(bbuf)) > 0 ) {
+            sb.append(new String(bbuf, 0, hasRead));
+        }
+        fis.close();
         return sb.toString();
     }
 
     /**
      * 根据文件路径读取byte[] 数组
      */
-    public static byte[] readFileByBytes(String filePath) throws IOException {
-        File file = new File(filePath);
+    public static byte[] readFileByBytes(File file) throws Exception {
         if (!file.exists()) {
-            throw new FileNotFoundException(filePath);
+            throw new FileNotFoundException(file.getPath());
         } else {
             ByteArrayOutputStream bos = new ByteArrayOutputStream((int) file.length());
             BufferedInputStream in = null;
@@ -70,3 +80,4 @@ public class FileUtil {
         }
     }
 }
+

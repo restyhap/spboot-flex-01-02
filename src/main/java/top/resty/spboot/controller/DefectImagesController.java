@@ -1,21 +1,15 @@
 package top.resty.spboot.controller;
 
-import com.mybatisflex.core.paginate.Page;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import top.resty.spboot.entity.DefectImages;
-import top.resty.spboot.service.DefectImagesService;
-import org.springframework.web.bind.annotation.RestController;
 import cn.zhxu.bs.BeanSearcher;
 import cn.zhxu.bs.util.MapUtils;
-import top.resty.spboot.vo.ResultVO;
+import com.mybatisflex.core.paginate.Page;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import top.resty.spboot.entity.DefectImages;
+import top.resty.spboot.service.DefectImagesService;
+import top.resty.spboot.vo.ResultVO;
+
 import java.util.Map;
 
 /**

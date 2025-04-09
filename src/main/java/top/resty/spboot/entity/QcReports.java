@@ -1,19 +1,19 @@
 package top.resty.spboot.entity;
 
+import cn.zhxu.bs.bean.DbField;
+import cn.zhxu.bs.bean.SearchBean;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
-import java.io.Serializable;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import cn.zhxu.bs.bean.SearchBean;
-
-import java.io.Serial;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * 质检报告基本信息表 实体类。
@@ -227,18 +227,21 @@ public class QcReports implements Serializable {
      * 成品图片-45度视图
      */
     @Column("image_of_product_built_45_degree")
+    @DbField("image_of_product_built_45_degree")
     private String imageOfProductBuilt45Degree;
 
     /**
      * 成品图片-样品对比图1
      */
     @Column("front_image_of_product_built_compare_1")
+    @DbField("front_image_of_product_built_compare_1")
     private String frontImageOfProductBuiltCompare1;
 
     /**
      * 成品图片-样品对比图2
      */
     @Column("front_image_of_product_built_compare_2")
+    @DbField("front_image_of_product_built_compare_2")
     private String frontImageOfProductBuiltCompare2;
 
     /**

@@ -34,9 +34,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 #end
-import java.util.List;
 import cn.zhxu.bs.BeanSearcher;
 import cn.zhxu.bs.util.MapUtils;
+import top.resty.spboot.vo.ResultVO;
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * #(tableComment) 控制层。
@@ -71,10 +73,23 @@ public class #(table.buildControllerClassName()) #if(controllerConfig.superClass
      * @return 搜索结果
      */
     @GetMapping("search")
-    public List<#(entityClassName)> search (HttpServletRequest request ) {
-        Map<String, Object> flat = MapUtils.flat(request.getParameterMap());
-        flat.put("sort","id");
-        return beanSearcher.searchList(#(entityClassName).class, flat);
+    public ResultVO search (HttpServletRequest request ) {
+        String keyword = request.getParameter("keyword");
+        Integer currentPage = Integer.parseInt(request.getParameter("currentPage"));
+        Integer pageSize = Integer.parseInt(request.getParameter("pageSize"));
+
+        Map flat = MapUtils.builder()
+                .or(or -> or
+                    .field(#(entityClassName)::getId, keyword).op("ct")
+                )
+                .put("sort", "id")
+                .put("order","desc");
+                .put("page", currentPage - 1)
+                .put("size", pageSize)
+                .build();
+            SearchResult search = beanSearcher.search(#(entityClassName).class, flat);
+
+        return ResultVO.success(search));
     }
 
     /**
@@ -90,8 +105,8 @@ public class #(table.buildControllerClassName()) #if(controllerConfig.superClass
     #if(withSwagger && swaggerVersion.getName() == "DOC")
     @Operation(description="保存#(tableComment)")
     #end
-    public boolean save(@RequestBody #if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("#(tableComment)") #end #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="#(tableComment)")#end #(entityClassName) #(entityVarName)) {
-        return #(serviceVarName).save(#(entityVarName));
+    public ResultVO save(@RequestBody #if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("#(tableComment)") #end #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="#(tableComment)")#end #(entityClassName) #(entityVarName)) {
+        return ResultVO.success(#(serviceVarName).save(#(entityVarName)));
     }
 
     /**
@@ -107,8 +122,8 @@ public class #(table.buildControllerClassName()) #if(controllerConfig.superClass
     #if(withSwagger && swaggerVersion.getName() == "DOC")
     @Operation(description="根据主键#(tableComment)")
     #end
-    public boolean remove(@PathVariable #if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("#(tableComment)主键") #end #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="#(tableComment)主键")#end #(primaryKeyType) id) {
-        return #(serviceVarName).removeById(id);
+    public ResultVO remove(@PathVariable #if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("#(tableComment)主键") #end #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="#(tableComment)主键")#end #(primaryKeyType) id) {
+        return ResultVO.success(#(serviceVarName).removeById(id));
     }
 
     /**
@@ -124,8 +139,8 @@ public class #(table.buildControllerClassName()) #if(controllerConfig.superClass
     #if(withSwagger && swaggerVersion.getName() == "DOC")
     @Operation(description="根据主键更新#(tableComment)")
     #end
-    public boolean update(@RequestBody #if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("#(tableComment)主键") #end #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="#(tableComment)主键")#end#(entityClassName) #(entityVarName)) {
-        return #(serviceVarName).updateById(#(entityVarName));
+    public ResultVO update(@RequestBody #if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("#(tableComment)主键") #end #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="#(tableComment)主键")#end#(entityClassName) #(entityVarName)) {
+        return ResultVO.success(#(serviceVarName).updateById(#(entityVarName)));
     }
 
     /**
@@ -140,8 +155,8 @@ public class #(table.buildControllerClassName()) #if(controllerConfig.superClass
     #if(withSwagger && swaggerVersion.getName() == "DOC")
     @Operation(description="查询所有#(tableComment)")
     #end
-    public List<#(entityClassName)> list() {
-        return #(serviceVarName).list();
+    public ResultVO list() {
+        return ResultVO.success(#(serviceVarName).list());
     }
 
     /**
@@ -157,8 +172,8 @@ public class #(table.buildControllerClassName()) #if(controllerConfig.superClass
     #if(withSwagger && swaggerVersion.getName() == "DOC")
     @Operation(description="根据主键获取#(tableComment)")
     #end
-    public #(entityClassName) getInfo(@PathVariable #if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("#(tableComment)主键") #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="#(tableComment)主键")#end#end #(primaryKeyType) id) {
-        return #(serviceVarName).getById(id);
+    public ResultVO getInfo(@PathVariable #if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("#(tableComment)主键") #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="#(tableComment)主键")#end#end #(primaryKeyType) id) {
+        return ResultVO.success(#(serviceVarName).getById(id));
     }
 
     /**
@@ -174,8 +189,14 @@ public class #(table.buildControllerClassName()) #if(controllerConfig.superClass
     #if(withSwagger && swaggerVersion.getName() == "DOC")
     @Operation(description="分页查询#(tableComment)")
     #end
-    public Page<#(entityClassName)> page(#if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("分页信息") #end #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="分页信息")#end Page<#(entityClassName)> page) {
-        return #(serviceVarName).page(page);
+    public ResultVO page(#if(withSwagger && swaggerVersion.getName() == "FOX")@ApiParam("分页信息") #end #if(withSwagger && swaggerVersion.getName() == "DOC")@Parameter(description="分页信息")#end Page<#(entityClassName)> page) {
+        // 创建 QueryWrapper 并设置倒序排序
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.orderBy("id desc");  // 按ID倒序排序
+
+        // 使用 paginate 方法进行分页查询
+        Page<#(entityClassName)> resultPage = #(serviceVarName).page(page, queryWrapper);
+        return ResultVO.success(resultPage);
     }
 
 }

@@ -1,4 +1,4 @@
-package top.resty.store.config;
+package top.resty.spboot.config;
 
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,11 +8,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
-import top.resty.store.exception.BaseException;
-import top.resty.store.exception.BusinessException;
-import top.resty.store.exception.DatabaseException;
-import top.resty.store.exception.ParamException;
-import top.resty.store.vo.ResultVO;
+import top.resty.spboot.exception.BaseException;
+import top.resty.spboot.exception.BusinessException;
+import top.resty.spboot.exception.DatabaseException;
+import top.resty.spboot.exception.ParamException;
+import top.resty.spboot.vo.ResultVO;
+
 
 import java.util.Objects;
 

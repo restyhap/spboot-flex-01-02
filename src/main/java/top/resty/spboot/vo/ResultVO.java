@@ -1,8 +1,10 @@
-package top.resty.store.vo;
+package top.resty.spboot.vo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
-import top.resty.store.config.ResultEnum;
+import top.resty.spboot.config.ResultEnum;
+
 
 import java.io.Serializable;
 
@@ -23,6 +25,7 @@ public class ResultVO<T> implements Serializable {
    * @author resty
    * @since 2022-07-05
    **/
+  @Schema(description = "状态码")
   private String code;
   /**
    * 返回消息
@@ -30,6 +33,7 @@ public class ResultVO<T> implements Serializable {
    * @author resty
    * @since 2022-07-05
    **/
+  @Schema(description = "返回消息")
   private String message;
   /**
    * 返回的数据
@@ -37,6 +41,7 @@ public class ResultVO<T> implements Serializable {
    * @author resty
    * @since 2022-07-05
    **/
+  @Schema(description = "返回的数据")
   private Object data;
 
   /**
@@ -53,6 +58,7 @@ public class ResultVO<T> implements Serializable {
     this.message = message;
     this.data = data;
   }
+
 
   /**
    * 成功不需要返回数据
@@ -76,6 +82,7 @@ public class ResultVO<T> implements Serializable {
   public static ResultVO success(Object obj) {
     return new ResultVO(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage(), obj);
   }
+
 
   /**
    * 请求的内容不存在

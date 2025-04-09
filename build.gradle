@@ -24,10 +24,40 @@ repositories {
 }
 
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
   implementation 'org.springframework.boot:spring-boot-starter-web'
+  // implementation 'org.springframework.boot:spring-boot-starter-security'
+
+
+  // https://mvnrepository.com/artifact/cn.hutool/hutool-all
+  implementation("cn.hutool:hutool-all:5.8.26")
+
+  /*** mysql-jdbc ***/
+  // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+  implementation ("mysql:mysql-connector-java:8.0.31")
+  /*** hikari ***/
+  // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+  implementation group: 'com.zaxxer', name: 'HikariCP', version: '6.0.0'
+  /*** mybatis-flex ***/
+  // https://mvnrepository.com/artifact/com.mybatis-flex/mybatis-flex-spring-boot-starter
+  implementation 'com.mybatis-flex:mybatis-flex-spring-boot3-starter:1.9.8'
+  compileOnly 'com.mybatis-flex:mybatis-flex-processor:1.9.8'
+
+  /*** mybatis-flex codegen ***/
+  implementation 'com.mybatis-flex:mybatis-flex-codegen:1.9.8'
+
+  /*** bean-searcher 只读 持久层 框架 查询增强 ***/
+  // SpringBoot / Grails 项目直接使用以下依赖，更为方便（只添加这一个依赖即可）
+  implementation 'cn.zhxu:bean-searcher-boot-starter:4.3.4'
+
+  implementation 'com.google.code.gson:gson:2.2.4'
+  implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
+  implementation 'com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.1.0'
+
+
   compileOnly 'org.projectlombok:lombok'
-  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  // developmentOnly 'org.springframework.boot:spring-boot-devtools'
   annotationProcessor 'org.projectlombok:lombok'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

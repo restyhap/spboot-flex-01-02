@@ -1,10 +1,10 @@
 package top.resty.spboot.service.impl;
 
 import com.mybatisflex.spring.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
 import top.resty.spboot.entity.Quotation;
 import top.resty.spboot.mapper.QuotationMapper;
 import top.resty.spboot.service.QuotationService;
-import org.springframework.stereotype.Service;
 
 /**
  * 报价单 服务层实现。

@@ -1,4 +1,4 @@
-package com.baidu.ai.aip.utils;
+package top.resty.spboot.utils;
 
 /**
  * Base64 工具类

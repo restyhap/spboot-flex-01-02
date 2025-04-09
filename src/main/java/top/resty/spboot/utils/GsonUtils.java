@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
  */
-package com.baidu.ai.aip.utils;
+package top.resty.spboot.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,10 +13,12 @@ import java.lang.reflect.Type;
  * Json工具类.
  */
 public class GsonUtils {
+
     private static Gson gson = new GsonBuilder().create();
 
     public static String toJson(Object value) {
-        return gson.toJson(value);
+        // return gson.toJson(value);
+        return null ;
     }
 
     public static <T> T fromJson(String json, Class<T> classOfT) throws JsonParseException {

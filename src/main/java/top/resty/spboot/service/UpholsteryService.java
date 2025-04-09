@@ -10,5 +10,7 @@ import top.resty.spboot.entity.Upholstery;
  * @since 2025-02-11
  */
 public interface UpholsteryService extends IService<Upholstery> {
+  Upholstery getByProductId(Long productId);
 
+  boolean removeByProductId(Long productId);
 }
