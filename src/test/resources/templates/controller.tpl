@@ -83,13 +83,13 @@ public class #(table.buildControllerClassName()) #if(controllerConfig.superClass
                     .field(#(entityClassName)::getId, keyword).op("ct")
                 )
                 .put("sort", "id")
-                .put("order","desc");
+                .put("order","desc")
                 .put("page", currentPage - 1)
                 .put("size", pageSize)
                 .build();
             SearchResult search = beanSearcher.search(#(entityClassName).class, flat);
 
-        return ResultVO.success(search));
+        return ResultVO.success(search);
     }
 
     /**
