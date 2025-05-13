@@ -70,18 +70,18 @@ public class PdfExportService {
             Table infoTable = new Table(UnitValue.createPercentArray(new float[]{30, 70}))
                     .setWidth(UnitValue.createPercentValue(100));
             
-            addTableCell(infoTable, "Model Code:", qcReport.getModelCode(), true);
-            addTableCell(infoTable, "Factory Code:", qcReport.getFactoryCode(), true);
-            addTableCell(infoTable, "Supplier:", qcReport.getSupplier(), true);
-            addTableCell(infoTable, "Client:", qcReport.getClient(), true);
-            addTableCell(infoTable, "PO Number:", qcReport.getPoNumber(), true);
-            addTableCell(infoTable, "Inspection Date:", qcReport.getInspectionDate(), true);
-            addTableCell(infoTable, "Order Qty:", String.valueOf(qcReport.getOrderQty()), true);
-            addTableCell(infoTable, "Report Date:", qcReport.getReportDate(), true);
-            addTableCell(infoTable, "Inspect Qty:", String.valueOf(qcReport.getInspectQty()), true);
-            addTableCell(infoTable, "QC Officer:", qcReport.getQcOfficer(), true);
-            addTableCell(infoTable, "Pass/Fail:", qcReport.getPassFail(), true);
-            addTableCell(infoTable, "Second QC Date:", qcReport.getSecondQCDate(), true);
+            addTableCell(infoTable, "Model Code:", qcReport.getQcReports().getModelCode(), true);
+            addTableCell(infoTable, "Factory Code:", qcReport.getQcReports().getFactoryCode(), true);
+            addTableCell(infoTable, "Supplier:", qcReport.getQcReports().getSupplier(), true);
+            addTableCell(infoTable, "Client:", qcReport.getQcReports().getClient(), true);
+            addTableCell(infoTable, "PO Number:", qcReport.getQcReports().getPoNumber(), true);
+            addTableCell(infoTable, "Inspection Date:", qcReport.getQcReports().getInspectionDate(), true);
+            addTableCell(infoTable, "Order Qty:", String.valueOf(qcReport.getQcReports().getOrderQty()), true);
+            addTableCell(infoTable, "Report Date:", qcReport.getQcReports().getReportDate(), true);
+            addTableCell(infoTable, "Inspect Qty:", String.valueOf(qcReport.getQcReports().getInspectQty()), true);
+            addTableCell(infoTable, "QC Officer:", qcReport.getQcReports().getQcOfficer(), true);
+            addTableCell(infoTable, "Pass/Fail:", qcReport.getQcReports().getPassFail(), true);
+            addTableCell(infoTable, "Second QC Date:", qcReport.getQcReports().getSecondQcDate(), true);
             
             document.add(infoTable);
             
@@ -94,7 +94,7 @@ public class PdfExportService {
             Table commentsTable = new Table(1)
                     .setWidth(UnitValue.createPercentValue(100));
             Cell commentsCell = new Cell()
-                    .add(new Paragraph(qcReport.getComments() != null ? qcReport.getComments() : ""))
+                    .add(new Paragraph(qcReport.getQcReports().getComments() != null ? qcReport.getQcReports().getComments() : ""))
                     .setMinHeight(60)
                     .setBorder(new SolidBorder(ColorConstants.BLACK, 1));
             commentsTable.addCell(commentsCell);
@@ -613,9 +613,9 @@ public class PdfExportService {
             String label = entry.getValue();
             
             try {
-                java.lang.reflect.Method getter = QcReportsDTO.class.getMethod("get" +
+                java.lang.reflect.Method getter = qcReport.getQcReports().getClass().getMethod("get" +
                         fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1));
-                String imagePath = (String) getter.invoke(qcReport);
+                String imagePath = (String) getter.invoke(qcReport.getQcReports());
                 
                 Cell cell = new Cell();
                 cell.setBorder(new SolidBorder(ColorConstants.BLACK, 1));
