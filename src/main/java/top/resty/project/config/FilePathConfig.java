@@ -34,4 +34,12 @@ public class FilePathConfig implements WebMvcConfigurer {
         .addResourceLocations("file:"+uploadPath);
   }
 
+  /**
+   * Get the configured upload path
+   * @return The upload path
+   */
+  public String getUploadPath() {
+    return uploadPath;
+  }
+
 }

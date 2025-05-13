@@ -14,8 +14,10 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.properties.VerticalAlignment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import top.resty.project.config.FilePathConfig;
 import top.resty.project.dto.QcReportsDTO;
 import top.resty.project.entity.Quotation;
 
@@ -30,6 +32,9 @@ public class PdfExportService {
 
     @Value("${config.upload-path}")
     private String uploadPath;
+    
+    @Autowired
+    private FilePathConfig filePathConfig;
 
     /**
      * Generate PDF for QC Report
