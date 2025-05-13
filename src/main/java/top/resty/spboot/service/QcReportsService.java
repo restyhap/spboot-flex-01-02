@@ -1,6 +1,7 @@
 package top.resty.spboot.service;
 
 import com.mybatisflex.core.service.IService;
+import top.resty.spboot.dto.QcReportsDTO;
 import top.resty.spboot.entity.QcReports;
 
 /**
@@ -11,4 +12,11 @@ import top.resty.spboot.entity.QcReports;
  */
 public interface QcReportsService extends IService<QcReports> {
 
+    /**
+     * Get QcReportsDTO by ID
+     *
+     * @param id QcReports ID
+     * @return QcReportsDTO object
+     */
+    QcReportsDTO getQcReportDTOById(String id);
 }
