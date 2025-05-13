@@ -26,6 +26,7 @@ public class FilePathConfig implements WebMvcConfigurer {
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    //和页面有关的静态目录都放在项目的static目录下
     registry.addResourceHandler("/**")
         .addResourceLocations("classpath:/static/")
         .addResourceLocations("classpath:/templates/")
@@ -33,7 +34,4 @@ public class FilePathConfig implements WebMvcConfigurer {
         .addResourceLocations("file:"+uploadPath);
   }
 
-  public String getUploadPath() {
-    return uploadPath;
-  }
 }

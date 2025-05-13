@@ -1,50 +1,35 @@
 package top.resty.project.service;
 
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.layout.borders.SolidBorder;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.properties.VerticalAlignment;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import top.resty.project.config.FilePathConfig;
-import top.resty.project.entity.QcReports;
-import top.resty.project.entity.Quotation;
 import top.resty.project.dto.QcReportsDTO;
+import top.resty.project.entity.Quotation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class PdfExportService {
 
     @Value("${config.upload-path}")
     private String uploadPath;
-    
-    @Autowired
-    private FilePathConfig filePathConfig;
 
     /**
      * Generate PDF for QC Report
@@ -623,7 +608,7 @@ public class PdfExportService {
             String label = entry.getValue();
             
             try {
-                java.lang.reflect.Method getter = QcReportsDTO.class.getMethod("get" + 
+                java.lang.reflect.Method getter = QcReportsDTO.class.getMethod("get" +
                         fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1));
                 String imagePath = (String) getter.invoke(qcReport);
                 

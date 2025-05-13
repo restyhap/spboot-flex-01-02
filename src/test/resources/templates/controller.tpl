@@ -36,7 +36,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 #end
 import cn.zhxu.bs.BeanSearcher;
 import cn.zhxu.bs.util.MapUtils;
-import top.resty.spboot.vo.ResultVO;
+import top.resty.project.vo.ResultVO;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 
